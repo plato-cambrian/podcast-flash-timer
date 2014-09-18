@@ -1,0 +1,56 @@
+<html> 
+<head>
+<style>
+.flash{ background-color: red }
+.flash{ transition: 1s linear all;}
+span {
+  display: inline-block;
+  width:49%;
+  text-align: center;
+  font-size: 40px;
+  font-family: inconsolata; consolas; monospace
+}
+</style>
+<script type='text/javascript'>
+var secondsTotal          = 10 * 60;
+var secondsRemainingTotal = secondsTotal;
+var secondsRemainingFlash = 0;
+var secondsElapsed        = 0;
+var flashInterval       = 90;
+
+document.addEventListener('DOMContentLoaded', init)
+
+function init(){
+  window.setInterval(flash, flashInterval*1000);
+  window.setInterval(tick, 1 * 1000);
+  flash();
+}
+
+function flash(){
+  secondsRemainingFlash = flashInterval;
+  document.body.classList.add('flash');
+  window.setTimeout(unflash, 0.5*1000);
+  console.log('flash');
+}
+
+function unflash(){
+  document.body.classList.remove('flash');
+}
+
+function tick(){
+  secondsRemainingFlash -= 1;
+  secondsRemainingTotal -= 1;
+  if(secondsRemainingTotal == 0){
+    alert(secondsTotal, 'seconds elapsed. Done.')
+  }
+  document.getElementById('secondsRemainingFlash').innerHTML = secondsRemainingFlash;
+  document.getElementById('secondsRemainingTotal').innerHTML = secondsRemainingTotal;
+}
+
+</script>
+</head>
+<body>
+<span id="secondsRemainingFlash"></span>
+<span id="secondsRemainingTotal"></span>
+</body>
+</html>
